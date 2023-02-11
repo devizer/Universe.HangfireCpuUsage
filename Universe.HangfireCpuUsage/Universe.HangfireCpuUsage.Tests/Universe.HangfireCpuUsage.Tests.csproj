@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <Import Project="..\Shared-Files\NUnit-Platform.props" />
+
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.InMemory" Version="0.3.5" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Universe.HangfireCpuUsage\Universe.HangfireCpuUsage.csproj" />
+  </ItemGroup>
+
+</Project>
