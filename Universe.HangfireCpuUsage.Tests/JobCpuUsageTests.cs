@@ -24,7 +24,7 @@ namespace Universe.HangfireCpuUsage.Tests
             OnDispose("Clean Filters", () => GlobalJobFilters.Filters.Add(cpuUsageJobFilter), TestDisposeOptions.Default);
             using var hangfire = new InMemoryHangfireServer();
             hangfire.Client.Enqueue(() => TestJob(expectedCpuUsage));
-            var finishStatus = hangfire.WaitForJobsCount(1);
+            var finishStatus = hangfire.WaitForJobsCount(1, timeoutMilliseconds: 5000);
             Assert.AreEqual(true, finishStatus.Success);
             Assert.IsTrue(isNotified);
             Assert.GreaterOrEqual(actualCpuUsage, expectedCpuUsage);
