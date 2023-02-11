@@ -44,9 +44,23 @@ jobs:
   steps:
 
   - bash: |
+      set -eu; set -o pipefail
       script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
       Say --Reset-Stopwatch
 
-      Say "NOT IMPLEMENTED"
+      revision="$(set TZ=GMT; git log -n 999999 --date=raw --pretty=format:"%cd" | wc -l)"
+      version="1.0.${revision}"
+      Say "Version: $version"
+
+      dotnet pack -c Release -p:PackageVersion=$version -p:Version=$version
+      find -name '*nupkg'
+      find -name '*nupkg' | xargs -0 cp -f "{}" $SYSTEM_ARTIFACTSDIRECTORY/
     displayName: 'Deploy NuGet'
+
+  - task: PublishBuildArtifacts@1
+    condition: succeededOrFailed()
+    displayName: 'Publish'
+    inputs:
+      pathtoPublish: '$(System.ARTIFACTSDIRECTORY)'
+      artifactName: '$(Agent.JobName)'
 

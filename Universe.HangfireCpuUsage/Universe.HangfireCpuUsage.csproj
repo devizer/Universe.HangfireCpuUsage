@@ -7,6 +7,23 @@
         <Nullable>disable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <PackageId>Universe.HangfireCpuUsage</PackageId>
+        <Title>Universe.HangfireCpuUsage</Title>
+        <Authors>Volodymyr Hoida</Authors>
+        <Product>Universe.HangfireCpuUsage</Product>
+        <Description>Per-job cpu usage including async jobs. Targets .Net Standard 1.3+, .Net Framework 4.6+</Description>
+        <PackageProjectUrl>https://github.com/devizer/Universe.HangfireCpuUsage</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/devizer/Universe.HangfireCpuUsage</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <!-- PackageIconUrl>https://raw.githubusercontent.com/devizer/Universe.NativeLinux.Interop/master/images/Main.Icon.png</PackageIconUrl -->
+        <PackageTags>hangfire cpu usage linux windows macos async job</PackageTags>
+        <DebugType>Full</DebugType>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+
     <ItemGroup>
         <PackageReference Include="Universe.CpuUsage" Version="2.2.497.598" />
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
