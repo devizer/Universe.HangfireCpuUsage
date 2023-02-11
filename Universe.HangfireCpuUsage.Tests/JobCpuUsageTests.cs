@@ -34,7 +34,7 @@ namespace Universe.HangfireCpuUsage.Tests
 
         public void TestJob(int cpuLoad)
         {
-            Console.WriteLine("Hello, it is a job");
+            Console.WriteLine($"Hello, it is a job. Expected CPU usage is {cpuLoad:n0} milliseconds");
             CpuLoader.Run(1, cpuLoad);
         }
     }
