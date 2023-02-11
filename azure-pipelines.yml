@@ -19,7 +19,7 @@ jobs:
     vmImage: '$(IMAGE)'
   timeoutInMinutes: 12
   strategy:
-    maxParallel: 3
+    maxParallel: 6
     matrix:
       'On Mac OS':
         IMAGE: 'macos-12'
@@ -30,6 +30,7 @@ jobs:
 
   steps:
   - bash: |
+       printenv | sort
        dotnet restore || dotnet restore --disable-parallel
        dotnet test -c Release
     condition: succeededOrFailed()
