@@ -58,7 +58,7 @@ jobs:
 
       dotnet pack -c Release -p:PackageVersion=$version -p:Version=$version
       find -name '*nupkg'
-      find -name '*nupkg' | xargs cp -f "{}" "$SYSTEM_ARTIFACTSDIRECTORY/$(basename "{}")"
+      find -name '*nupkg' | xargs echo cp -f "{}" "$SYSTEM_ARTIFACTSDIRECTORY/$(basename "{}")"
     displayName: 'Deploy NuGet'
 
   - task: PublishBuildArtifacts@1
