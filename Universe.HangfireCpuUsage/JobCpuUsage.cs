@@ -1,4 +1,4 @@
-﻿namespace Universe.HangfireCpuUsage
+namespace Universe.HangfireCpuUsage
 {
     public class JobCpuUsage
     {

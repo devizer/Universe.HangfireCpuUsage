@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Threading;
-using Hangfire.Common;
-using Hangfire.Server;
-using Universe.CpuUsage;
-
 namespace Universe.HangfireCpuUsage
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Diagnostics;
+    using System.Threading;
+    using Hangfire.Common;
+    using Hangfire.Server;
+    using Universe.CpuUsage;
+
     public class CpuUsageJobFilter :
         JobFilterAttribute,
         IServerFilter
@@ -24,7 +24,7 @@ namespace Universe.HangfireCpuUsage
             public Stopwatch StartAt;
 
             // Sync task
-            public CpuUsage.CpuUsage CpuUsageOnStart;
+            public CpuUsage CpuUsageOnStart;
 
             public int StartThreadId;
 
@@ -41,7 +41,7 @@ namespace Universe.HangfireCpuUsage
             var jobIs = context.BackgroundJob.Id;
             if (!string.IsNullOrEmpty(jobIs))
             {
-                var cpuUsage = CpuUsage.CpuUsage.GetByThread();
+                var cpuUsage = CpuUsage.GetByThread();
                 if (cpuUsage.HasValue)
                 {
                     _ProcessingJobs[jobIs] = new JobState()
@@ -58,7 +58,7 @@ namespace Universe.HangfireCpuUsage
         public void OnPerformed(PerformedContext context)
         {
 
-            JobCpuUsage data = new JobCpuUsage();
+            JobCpuUsage jobCpuUsage = new JobCpuUsage();
 
             string cpuUsageAsDebug = null;
             var jobIs = context.BackgroundJob.Id;
@@ -67,28 +67,28 @@ namespace Universe.HangfireCpuUsage
                 if (_ProcessingJobs.TryRemove(jobIs, out var state))
                 {
                     state.CpuUsageWatcher.Stop();
-                    CpuUsage.CpuUsage? deltaSync = null;
+                    CpuUsage? deltaSync = null;
                     var threadId = Thread.CurrentThread.ManagedThreadId;
                     if (threadId == state.StartThreadId)
                     {
-                        CpuUsage.CpuUsage onEnd = CpuUsage.CpuUsage.GetByThread().GetValueOrDefault();
-                        CpuUsage.CpuUsage onStart = state.CpuUsageOnStart;
+                        CpuUsage onEnd = CpuUsage.GetByThread().GetValueOrDefault();
+                        CpuUsage onStart = state.CpuUsageOnStart;
                         deltaSync = onEnd - onStart;
                     }
 
                     double elapsed = state.StartAt.ElapsedTicks * 1000d / Stopwatch.Frequency;
-                    data.Duration = elapsed;
+                    jobCpuUsage.Duration = elapsed;
 
-                    CpuUsage.CpuUsage? deltaTotal = deltaSync;
+                    CpuUsage? deltaTotal = deltaSync;
                     var totalSubTasks = state.CpuUsageWatcher.Totals;
                     deltaTotal += totalSubTasks.GetSummaryCpuUsage();
-                    data.SubTaskCount = totalSubTasks.Count;
+                    jobCpuUsage.SubTaskCount = totalSubTasks.Count;
 
                     if (deltaTotal.HasValue)
                     {
                         var delta = deltaTotal.Value;
-                        double user = data.UserTime = delta.UserUsage.TotalMicroSeconds / 1000d;
-                        double kernel = data.KernelTime = delta.KernelUsage.TotalMicroSeconds / 1000d;
+                        double user = jobCpuUsage.UserTime = delta.UserUsage.TotalMicroSeconds / 1000d;
+                        double kernel = jobCpuUsage.KernelTime = delta.KernelUsage.TotalMicroSeconds / 1000d;
                         double perCents = (user + kernel) / elapsed;
                         string subTaskCount = null;
                         if (totalSubTasks.Count == 1)
@@ -97,7 +97,7 @@ namespace Universe.HangfireCpuUsage
                             subTaskCount = $", {totalSubTasks.Count} sub-tasks";
 
                         cpuUsageAsDebug = $"{elapsed:n2} ms (cpu: {perCents * 100:n1}%, {user + kernel:n2} = {user:n2} [user] + {kernel:n2} [kernel]{subTaskCount})";
-                        data.InfoMessage = cpuUsageAsDebug;
+                        jobCpuUsage.InfoMessage = cpuUsageAsDebug;
                     }
                 }
 
@@ -105,15 +105,8 @@ namespace Universe.HangfireCpuUsage
 
             var copy = Notify;
             if (copy != null)
-                copy(context, data);
+                copy(context, jobCpuUsage);
 
-            /*
-                // if (context.BackgroundJob.Job.Method.Name.IndexOf("Async") >= 0 /*&& Debugger.IsAttached#1#)  Debugger.Break();
-                ConsoleExtensions.WriteLine(context, $"Job '{context.BackgroundJob.Job.Type.Name}.{context.BackgroundJob.Job.Method.Name}' has been performed.{Environment.NewLine}{cpuUsageAsDebug}");
-    
-                var jobKey = $"'{context.BackgroundJob.Job.Type.Name}.{context.BackgroundJob.Job.Method.Name}'";
-                Logger.LogInformation(context.BackgroundJob.Id, $"Job '{context.BackgroundJob.Id}' has been performed. '{context.BackgroundJob.Job.Type.Name}.{context.BackgroundJob.Job.Method.Name}' took {cpuUsageAsDebug}");
-            */
         }
     }
 }
