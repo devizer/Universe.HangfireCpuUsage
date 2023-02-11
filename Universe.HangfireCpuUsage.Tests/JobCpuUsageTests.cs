@@ -20,6 +20,9 @@ namespace Universe.HangfireCpuUsage.Tests
                 isNotified = true;
             });
 
+            // JIT
+            CpuLoader.Run(1, 1);
+
             GlobalJobFilters.Filters.Add(cpuUsageJobFilter);
             OnDispose("Clean Filters", () => GlobalJobFilters.Filters.Add(cpuUsageJobFilter), TestDisposeOptions.Default);
             using var hangfire = new InMemoryHangfireServer();
