@@ -32,7 +32,6 @@ jobs:
   - bash: |
        dotnet restore || dotnet restore --disable-parallel
        dotnet test -c Release
-       find -name '*dll' | xargs -L1 -I {} echo cp -f "{}" "$SYSTEM_ARTIFACTSDIRECTORY/\$(basename "{}")"
     condition: succeededOrFailed()
     displayName: 'Test'
 
@@ -57,8 +56,8 @@ jobs:
       Say "Version: $version"
 
       dotnet pack -c Release -p:PackageVersion=$version -p:Version=$version
-      find -name '*nupkg'
-      find -name '*nupkg' | xargs -L1 echo cp -f "{}" "$SYSTEM_ARTIFACTSDIRECTORY/$(basename "{}")"
+      cd ./Universe.HangfireCpuUsage/bin/Release
+      cp -f *nupkg "$SYSTEM_ARTIFACTSDIRECTORY/"
     displayName: 'Deploy NuGet'
 
   - task: PublishBuildArtifacts@1
