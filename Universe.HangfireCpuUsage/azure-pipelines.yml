@@ -1,0 +1,52 @@
+variables:
+  NUGET_VERSION: 0.1
+
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - '**'
+    exclude:
+    - 'build-scripts'
+    - 'Repack-Postgres-on-Linux.yml'
+
+jobs:
+
+- job: Test
+  pool:
+    vmImage: '$(IMAGE)'
+  timeoutInMinutes: 12
+  strategy:
+    maxParallel: 3
+    matrix:
+      'On Mac OS':
+        IMAGE: 'macos-12'
+      'On Windows 2022':
+        IMAGE: 'windows-2022'
+      'On Ubuntu 20.04':
+        IMAGE: 'ubuntu-20.04'
+
+  steps:
+  - bash: |
+       dotnet restore || dotnet restore --disable-parallel
+       dotnet test -c Release
+    condition: succeededOrFailed()
+    displayName: 'Test'
+
+
+- job: Deploy
+  dependsOn: Test
+  pool:
+    vmImage: 'ubuntu-20.04'
+  timeoutInMinutes: 7
+  steps:
+
+  - bash: |
+      script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
+      Say --Reset-Stopwatch
+
+      Say "NOT IMPLEMENTED"
+    displayName: 'Deploy NuGet'
+
