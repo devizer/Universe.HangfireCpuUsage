@@ -7,11 +7,12 @@ namespace Universe.HangfireCpuUsage.Tests
     public class JobCpuUsageTests : NUnitTestsBase
     {
         [Test]
-        public void Test1()
+        public void Test()
         {
             const int expectedCpuUsage = 777;
             int actualCpuUsage = -1;
             bool isNotified = false;
+
             var cpuUsageJobFilter = new CpuUsageJobFilter((context, usage) =>
             {
                 isNotified = true;
@@ -24,7 +25,7 @@ namespace Universe.HangfireCpuUsage.Tests
             CpuLoader.Run(1, 1);
 
             GlobalJobFilters.Filters.Add(cpuUsageJobFilter);
-            OnDispose("Clean Filters", () => GlobalJobFilters.Filters.Add(cpuUsageJobFilter), TestDisposeOptions.Default);
+            OnDispose("Clean Filters", () => GlobalJobFilters.Filters.Remove(cpuUsageJobFilter), TestDisposeOptions.Default);
             using var hangfire = new InMemoryHangfireServer();
             hangfire.Client.Enqueue(() => TestJob(expectedCpuUsage));
             var finishStatus = hangfire.WaitForJobsCount(1, timeoutMilliseconds: 5000);

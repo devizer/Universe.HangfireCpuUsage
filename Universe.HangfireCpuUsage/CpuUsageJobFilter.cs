@@ -8,9 +8,7 @@ namespace Universe.HangfireCpuUsage
     using Hangfire.Server;
     using Universe.CpuUsage;
 
-    public class CpuUsageJobFilter :
-        /*JobFilterAttribute,*/
-        IServerFilter
+    public class CpuUsageJobFilter : IServerFilter
     {
         protected Action<PerformedContext, JobCpuUsage> Notify;
 
@@ -40,7 +38,7 @@ namespace Universe.HangfireCpuUsage
         private /* static */ ConcurrentDictionary<string, JobState> _ProcessingJobs = new();
 
 
-        public void OnPerforming(PerformingContext context)
+        void IServerFilter.OnPerforming(PerformingContext context)
         {
             var jobIs = context.BackgroundJob.Id;
             if (!string.IsNullOrEmpty(jobIs))
@@ -59,7 +57,7 @@ namespace Universe.HangfireCpuUsage
             }
         }
 
-        public void OnPerformed(PerformedContext context)
+        void IServerFilter.OnPerformed(PerformedContext context)
         {
             JobCpuUsage jobCpuUsage = new JobCpuUsage();
 
