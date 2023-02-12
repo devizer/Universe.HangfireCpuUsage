@@ -19,12 +19,30 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## Usage: Log to the job's ILogger
+## Usage: Log to a .NET Core ILogger
 ```
-p
 public void ConfigureServices(IServiceCollection services)
 {
-    // todo
-    ...
+    services.AddHangfire(configuration => configuration
+        .UseFilter(new CpuUsageJobLogger(services.BuildServiceProvider().GetRequiredService<ILoggerFactory>()))
+        ...
 }
+
+class CpuUsageJobLogger : CpuUsageJobFilter
+{
+    private ILoggerFactory _loggerFactory;
+    public CpuUsageJobLogger(ILoggerFactory loggerFactory) : base()
+    {
+        _loggerFactory = loggerFactory;
+        base.Notify = Log;
+    }
+    void Log(PerformedContext context, JobCpuUsage cpuUsage)
+    {
+        var job = context.BackgroundJob.Job;
+        var category = job.Type + "." + job.Method.Name;
+        var logger = _loggerFactory.CreateLogger(category);
+        logger.LogInformation($"Job took {cpuUsage}");
+    }
+}
+
 ```
