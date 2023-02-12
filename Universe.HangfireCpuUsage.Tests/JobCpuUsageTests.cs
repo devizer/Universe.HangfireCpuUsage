@@ -14,10 +14,10 @@ namespace Universe.HangfireCpuUsage.Tests
             bool isNotified = false;
             var cpuUsageJobFilter = new CpuUsageJobFilter((context, usage) =>
             {
+                isNotified = true;
+                actualCpuUsage = (int)(usage.KernelTime + usage.UserTime);
                 var job = context.BackgroundJob;
                 Console.WriteLine($"Job {job.Id} '{job.Job.Type.Name}.{job.Job.Method.Name}' finished.{Environment.NewLine}{usage}");
-                actualCpuUsage = (int)(usage.KernelTime + usage.UserTime);
-                isNotified = true;
             });
 
             // JIT
