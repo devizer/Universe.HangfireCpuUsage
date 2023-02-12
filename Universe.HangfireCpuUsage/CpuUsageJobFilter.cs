@@ -9,7 +9,7 @@ namespace Universe.HangfireCpuUsage
     using Universe.CpuUsage;
 
     public class CpuUsageJobFilter :
-        JobFilterAttribute,
+        /*JobFilterAttribute,*/
         IServerFilter
     {
         protected Action<PerformedContext, JobCpuUsage> Notify;
@@ -61,7 +61,6 @@ namespace Universe.HangfireCpuUsage
 
         public void OnPerformed(PerformedContext context)
         {
-
             JobCpuUsage jobCpuUsage = new JobCpuUsage();
 
             string cpuUsageAsDebug = null;
@@ -94,6 +93,7 @@ namespace Universe.HangfireCpuUsage
                         double user = jobCpuUsage.UserTime = delta.UserUsage.TotalMicroSeconds / 1000d;
                         double kernel = jobCpuUsage.KernelTime = delta.KernelUsage.TotalMicroSeconds / 1000d;
                         double perCents = (user + kernel) / elapsed;
+
                         string subTaskCount = null;
                         if (totalSubTasks.Count == 1)
                             subTaskCount = ", 1 sub-task";
@@ -104,7 +104,6 @@ namespace Universe.HangfireCpuUsage
                         jobCpuUsage.InfoMessage = cpuUsageAsDebug;
                     }
                 }
-
             }
 
             var copy = Notify;

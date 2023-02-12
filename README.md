@@ -19,30 +19,31 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## Usage: Log to a .NET Core ILogger
+## Usage: Log to a .Net Core ILogger
 ```
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddHangfire(configuration => configuration
-        .UseFilter(new CpuUsageJobLogger(services.BuildServiceProvider().GetRequiredService<ILoggerFactory>()))
-        ...
+  var loggerFactory = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
+  services.AddHangfire(configuration => configuration
+    .UseFilter(new CpuUsageJobLogger(loggerFactory))
+    ...
 }
 
-class CpuUsageJobLogger : CpuUsageJobFilter
+private class CpuUsageJobLogger : CpuUsageJobFilter
 {
-    private ILoggerFactory _loggerFactory;
-    public CpuUsageJobLogger(ILoggerFactory loggerFactory) : base()
-    {
-        _loggerFactory = loggerFactory;
-        base.Notify = Log;
-    }
-    void Log(PerformedContext context, JobCpuUsage cpuUsage)
-    {
-        var job = context.BackgroundJob.Job;
-        var category = job.Type + "." + job.Method.Name;
-        var logger = _loggerFactory.CreateLogger(category);
-        logger.LogInformation($"Job took {cpuUsage}");
-    }
+  private ILoggerFactory _loggerFactory;
+  public CpuUsageJobLogger(ILoggerFactory loggerFactory) : base()
+  {
+    _loggerFactory = loggerFactory;
+    base.Notify = Log;
+  }
+  void Log(PerformedContext context, JobCpuUsage cpuUsage)
+  {
+    var job = context.BackgroundJob.Job;
+    var category = job.Type + "." + job.Method.Name;
+    var logger = _loggerFactory.CreateLogger(category);
+    logger.LogInformation($"Job took {cpuUsage}");
+  }
 }
 
 ```
