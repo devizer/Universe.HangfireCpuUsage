@@ -18,7 +18,7 @@ namespace Universe.HangfireCpuUsage.Tests
                 isNotified = true;
                 actualCpuUsage = (int)(usage.KernelTime + usage.UserTime);
                 var job = context.BackgroundJob;
-                Console.WriteLine($"Job {job.Id} '{job.Job.Type.Name}.{job.Job.Method.Name}' finished.{Environment.NewLine}{usage}");
+                Console.WriteLine($"Job {job.Id} '{job.Job.Type.Name}.{job.Job.Method.Name}' finished.{Environment.NewLine}Job took {usage}");
             });
 
             // JIT

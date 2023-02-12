@@ -10,7 +10,7 @@ namespace Universe.HangfireCpuUsage
 
     public class CpuUsageJobFilter : IServerFilter
     {
-        protected Action<PerformedContext, JobCpuUsage> Notify;
+        protected Action<PerformedContext, JobCpuUsage> Notify = delegate { };
 
         protected CpuUsageJobFilter()
         {
@@ -19,6 +19,11 @@ namespace Universe.HangfireCpuUsage
         public CpuUsageJobFilter(Action<PerformedContext, JobCpuUsage> notify)
         {
             Notify = notify;
+        }
+
+        public void AddHandler(Action<PerformedContext, JobCpuUsage> notify)
+        {
+            Notify += notify;
         }
 
         private class JobState
