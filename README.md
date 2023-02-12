@@ -4,7 +4,7 @@ Hangfire's CPU usage intergration provides cpu usage info for both sync and asyn
 ## Minimum OS Requirements
 Linux Kernel 2.6.26+, Mac OS 10.9+, Windows Vista+
 
-## Usage: log to Job's console on dashboard
+## Usage: Log to Job's console on dashboard
 ```
 public void ConfigureServices(IServiceCollection services)
 {
@@ -15,6 +15,16 @@ public void ConfigureServices(IServiceCollection services)
     {
         context.WriteLine($"Job took {cpuUsage}");
     }))
+    ...
+}
+```
+
+## Usage: Log to the job's ILogger
+```
+p
+public void ConfigureServices(IServiceCollection services)
+{
+    // todo
     ...
 }
 ```

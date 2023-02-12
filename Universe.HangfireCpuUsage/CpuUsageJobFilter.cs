@@ -12,7 +12,7 @@ namespace Universe.HangfireCpuUsage
         JobFilterAttribute,
         IServerFilter
     {
-        protected readonly Action<PerformedContext, JobCpuUsage> Notify;
+        protected Action<PerformedContext, JobCpuUsage> Notify;
 
         protected CpuUsageJobFilter()
         {
