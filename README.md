@@ -5,7 +5,7 @@ Hangfire's CPU usage intergration provides cpu usage info for both sync and asyn
 Linux Kernel 2.6.26+, Mac OS 10.9+, Windows Vista+
 
 ## Usage: Log to Job's console on dashboard and to an ILogger
-```
+```csharp
 builder.Services.AddHangfire(configuration => configuration
     .UseInMemoryStorage()
     .UseConsole()
@@ -28,7 +28,7 @@ builder.Services.AddHangfire(configuration => configuration
 ```
 
 ### Logger output
-```
+```log
 info: Universe.HangfireCpuUsage.DemoWebApplication.MyBackgroundServices.CpuStress[0]
       Arguments: requiredCpuUsage = 200
       Job took 202.50 ms (cpu: 100.3%, 203.12 = 187.50 [user] + 15.62 [kernel], 1 sub-task)
