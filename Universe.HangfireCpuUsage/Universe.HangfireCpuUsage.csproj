@@ -16,7 +16,7 @@
         <PackageProjectUrl>https://github.com/devizer/Universe.HangfireCpuUsage</PackageProjectUrl>
         <RepositoryUrl>https://github.com/devizer/Universe.HangfireCpuUsage</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <!-- PackageIconUrl>https://raw.githubusercontent.com/devizer/Universe.NativeLinux.Interop/master/images/Main.Icon.png</PackageIconUrl -->
+        <PackageIconUrl>https://raw.githubusercontent.com/devizer/Universe.HangfireCpuUsage/main/Images/Main.Icon.png</PackageIconUrl>
         <PackageTags>hangfire cpu usage linux windows macos async job</PackageTags>
         <DebugType>Full</DebugType>
         <IncludeSymbols>true</IncludeSymbols>
