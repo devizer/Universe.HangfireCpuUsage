@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddHostedService<JobCpuUsageDemoLauncher>();
-builder.Services.AddTransient<MyJobs>();
+builder.Services.AddTransient<DemoJobs>();
 builder.Services.AddHangfire(configuration => configuration
     .UseInMemoryStorage()
     .UseConsole()
