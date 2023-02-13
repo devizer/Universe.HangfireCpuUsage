@@ -28,14 +28,14 @@ builder.Services.AddHangfire(configuration => configuration
 ```
 
 #### Take for example [3 jobs](Universe.HangfireCpuUsage.DemoWebApplication/DemoJobs.cs)
-```csharp
+```css
 public async Task MultiThreadCpuStress(int threadsCount, int requiredCpuUsage) { … }
 public async Task CpuStress(int requiredCpuUsage) { … }
 public async Task Sleep(int duration) { … }
 ```
 
 #### Logger output is
-```log
+```yaml
 info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.MultiThreadCpuStress[0]
       Arguments: MultiThreadCpuStress(threadsCount = 4, requiredCpuUsage = 200)
       Job took 222.55 ms (cpu: 372.1%, 828.12 = 765.62 [user] + 62.50 [kernel], 4 sub-tasks)
