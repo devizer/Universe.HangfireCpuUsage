@@ -15,8 +15,15 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            _jobClient.Enqueue<MyBackgroundServices>(svc => svc.MultiThreadCpuStress(4, 200));
-            _jobClient.Enqueue<MyBackgroundServices>(svc => svc.CpuStress(200));
+            // jit
+            _jobClient.Enqueue<MyJobs>(svc => svc.MultiThreadCpuStress(2, 1));
+            _jobClient.Enqueue<MyJobs>(svc => svc.CpuStress(1));
+            _jobClient.Enqueue<MyJobs>(svc => svc.Sleep(1));
+            await Task.Delay(500);
+
+            _jobClient.Enqueue<MyJobs>(svc => svc.MultiThreadCpuStress(4, 200));
+            _jobClient.Enqueue<MyJobs>(svc => svc.CpuStress(400));
+            _jobClient.Enqueue<MyJobs>(svc => svc.Sleep(600));
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -24,7 +31,7 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
         }
     }
 
-    public class MyBackgroundServices
+    public class MyJobs
     {
         public async Task MultiThreadCpuStress(int threadsCount, int requiredCpuUsage)
         {
@@ -38,6 +45,11 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
         public async Task CpuStress(int requiredCpuUsage)
         {
             await MultiThreadCpuStress(1, requiredCpuUsage);
+        }
+
+        public async Task Sleep(int duration)
+        {
+            await Task.Delay(duration);
         }
 
         private void LoadCpu(int minDuration, int minCpuUsage, bool needKernelLoad = true)

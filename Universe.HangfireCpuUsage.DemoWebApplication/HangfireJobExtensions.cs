@@ -11,7 +11,7 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
     {
         public static string FormatArguments(this Job job)
         {
-            StringBuilder ret = new StringBuilder();
+            StringBuilder ret = new StringBuilder($"{job.Method.Name}(");
             ParameterInfo[] parameters = job.Method.GetParameters();
             for (int i = 0; i < parameters.Length; i++)
             {
@@ -21,7 +21,7 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
                 ret.Append(val);
             }
 
-            return ret.ToString();
+            return ret.Append(")").ToString();
         }
     }
 
