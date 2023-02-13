@@ -1,5 +1,6 @@
 using Hangfire;
 using Hangfire.Console;
+using Hangfire.Dashboard;
 using Universe.HangfireCpuUsage.DemoWebApplication;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +35,10 @@ builder.Services.AddHangfireServer();
 
 
 var app = builder.Build();
-app.UseHangfireDashboard();
+app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+{
+    Authorization = new[] { new AllowAllAuthorizationFilter() }
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -47,3 +51,8 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapRazorPages();
 app.Run();
+
+public class AllowAllAuthorizationFilter : IDashboardAuthorizationFilter
+{
+    public bool Authorize(DashboardContext context) => true;
+}
