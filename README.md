@@ -48,4 +48,4 @@ info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.Sleep[0]
 ```
 
 #### Dashboard Screen
-<img src="https://github.com/devizer/Universe.HangfireCpuUsage/raw/master/Images/Hangfire.CpuUsage.Dashboard.png" width="1282px" Alt="Job CPU Usage dashboard screen" Title="Job CPU Usage dashboard screen">
+<img src="https://github.com/devizer/Universe.HangfireCpuUsage/raw/main/Images/Hangfire.CpuUsage.Dashboard.png" width="1282px" Alt="Job CPU Usage dashboard screen" Title="Job CPU Usage dashboard screen">

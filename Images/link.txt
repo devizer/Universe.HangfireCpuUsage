@@ -1,0 +1,1 @@
+https://github.com/devizer/Universe.HangfireCpuUsage/blob/main/Images/Hangfire.CpuUsage.Dashboard.png?raw=true
