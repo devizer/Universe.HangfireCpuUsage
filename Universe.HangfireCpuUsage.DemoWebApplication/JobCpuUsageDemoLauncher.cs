@@ -14,6 +14,7 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             // jit
+            _jobClient.Enqueue<DemoJobs>(svc => svc.MultiThreadCpuStressThenFall(2, 1));
             _jobClient.Enqueue<DemoJobs>(svc => svc.MultiThreadCpuStress(2, 1));
             _jobClient.Enqueue<DemoJobs>(svc => svc.CpuStress(1));
             _jobClient.Enqueue<DemoJobs>(svc => svc.Sleep(1));
@@ -22,6 +23,8 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
             _jobClient.Enqueue<DemoJobs>(svc => svc.MultiThreadCpuStress(4, 200));
             _jobClient.Enqueue<DemoJobs>(svc => svc.CpuStress(400));
             _jobClient.Enqueue<DemoJobs>(svc => svc.Sleep(600));
+            _jobClient.Enqueue<DemoJobs>(svc => svc.MultiThreadCpuStressThenFall(4, 200));
+            _jobClient.Enqueue<DemoJobs>(svc => svc.Sleep(10_000_000));
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

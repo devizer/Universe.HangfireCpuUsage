@@ -13,6 +13,7 @@ builder.Services.AddTransient<DemoJobs>();
 builder.Services.AddHangfire(configuration => configuration
     .UseInMemoryStorage()
     .UseConsole()
+    .UseFilter(new AutomaticRetryAttribute() { Attempts = 0})
     .AddCpuUsageHandler((context, cpuUsage) =>
     {
         // Write to hangfire console output
@@ -23,7 +24,7 @@ builder.Services.AddHangfire(configuration => configuration
         // Write the same to "Type.Method" logger
         var job = context.BackgroundJob.Job;
         var category = job.Type + "." + job.Method.Name;
-        var loggerFactory = builder.Services.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
+        var loggerFactory = AppDomainLazy.Get(x => builder.Services.BuildServiceProvider(new ServiceProviderOptions() { ValidateOnBuild = false, ValidateScopes = false}).GetRequiredService<ILoggerFactory>());
         var logger = loggerFactory.CreateLogger(category);
         logger.LogInformation($"Arguments: {context.BackgroundJob.Job.FormatArguments()}" +
                               Environment.NewLine +
@@ -31,7 +32,7 @@ builder.Services.AddHangfire(configuration => configuration
     })
 );
 
-builder.Services.AddHangfireServer();
+builder.Services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromSeconds(1.1));
 
 
 var app = builder.Build();

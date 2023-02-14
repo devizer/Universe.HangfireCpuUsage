@@ -21,6 +21,7 @@
         <DebugType>Full</DebugType>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
 
 
@@ -28,6 +29,7 @@
         <PackageReference Include="Universe.CpuUsage" Version="2.2.497.598" />
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
         <PackageReference Include="Hangfire.Core" Version="1.7.*" />
+        <None Include="docs\readme.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>

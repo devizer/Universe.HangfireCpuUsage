@@ -5,6 +5,11 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication;
 
 public class DemoJobs
 {
+    public async Task MultiThreadCpuStressThenFall(int threadsCount, int requiredCpuUsage)
+    {
+        MultiThreadCpuStress(threadsCount, requiredCpuUsage);
+        throw new InvalidOperationException("Operation failed on purpose");
+    }
     public async Task MultiThreadCpuStress(int threadsCount, int requiredCpuUsage)
     {
         List<Task> tasks = new List<Task>();

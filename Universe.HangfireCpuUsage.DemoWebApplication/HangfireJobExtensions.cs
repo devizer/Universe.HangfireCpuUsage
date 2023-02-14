@@ -17,7 +17,7 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
             {
                 if (i > 0) ret.Append(", ");
                 ret.Append($"{parameters[i].Name} = ");
-                string val = JsonSerializer.Serialize(job.Args[i]);
+                string val = job.Args.Count > i ? JsonSerializer.Serialize(job.Args[i]) : "?";
                 ret.Append(val);
             }
 
@@ -33,7 +33,6 @@ namespace Universe.HangfireCpuUsage.DemoWebApplication
             if (filter == null)
             {
                 filter = new CpuUsageJobFilter(delegate { });
-                Console.WriteLine("[Adding CpuUsageJobFilter]");
                 configuration.UseFilter(filter);
             }
             filter.AddHandler(handler);
