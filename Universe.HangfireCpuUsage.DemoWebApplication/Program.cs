@@ -13,7 +13,7 @@ builder.Services.AddTransient<DemoJobs>();
 builder.Services.AddHangfire(configuration => configuration
     .UseInMemoryStorage()
     .UseConsole()
-    .UseFilter(new AutomaticRetryAttribute() { Attempts = 0})
+    .UseFilter(new AutomaticRetryAttribute() { Attempts = 2, DelayInSecondsByAttemptFunc = _ => 1, OnAttemptsExceeded = AttemptsExceededAction.Delete})
     .AddCpuUsageHandler((context, cpuUsage) =>
     {
         // Write to hangfire console output
@@ -32,7 +32,11 @@ builder.Services.AddHangfire(configuration => configuration
     })
 );
 
-builder.Services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromSeconds(1.1));
+builder.Services.AddHangfireServer(options =>
+{
+    options.SchedulePollingInterval = TimeSpan.FromSeconds(1);
+    options.WorkerCount = 20; // does not depend on core counts
+});
 
 
 var app = builder.Build();
