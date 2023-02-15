@@ -24,9 +24,9 @@ public class DemoJobs
         await MultiThreadCpuStress(1, requiredCpuUsage);
     }
 
-    public async Task Sleep(int duration)
+    public async Task Sleep(int duration, CancellationToken cancellationToken)
     {
-        await Task.Delay(duration);
+        await Task.Delay(duration, cancellationToken);
     }
 
     private void LoadCpu(int minDuration, int minCpuUsage, bool needKernelLoad = true)
