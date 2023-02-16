@@ -48,4 +48,4 @@ info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.Sleep[0]
 ```
 
 #### Dashboard Screen
-![Dashboard](https://github.com/devizer/Universe.HangfireCpuUsage/raw/main/Images/Hangfire.CpuUsage.Dashboard.png)
+![Dashboard Screenshot](https://raw.githubusercontent.com/devizer/Universe.HangfireCpuUsage/main/Images/Hangfire.CpuUsage.Dashboard.png)
