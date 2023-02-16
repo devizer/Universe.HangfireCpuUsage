@@ -27,7 +27,7 @@ builder.Services.AddHangfire(configuration => configuration
 );
 ```
 
-#### Take for example [3 jobs](Universe.HangfireCpuUsage.DemoWebApplication/DemoJobs.cs)
+#### Take for example [3 jobs](https://github.com/devizer/Universe.HangfireCpuUsage/blob/main/Universe.HangfireCpuUsage.DemoWebApplication/DemoJobs.cs)
 ```css
 public async Task MultiThreadCpuStress(int threadsCount, int requiredCpuUsage) { … }
 public async Task CpuStress(int requiredCpuUsage) { … }
@@ -48,4 +48,4 @@ info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.Sleep[0]
 ```
 
 #### Dashboard Screen
-<img src="https://github.com/devizer/Universe.HangfireCpuUsage/raw/main/Images/Hangfire.CpuUsage.Dashboard.png" width="1282px" Alt="Job CPU Usage dashboard screen" Title="Job CPU Usage dashboard screen">
+![Dashboard](https://github.com/devizer/Universe.HangfireCpuUsage/raw/main/Images/Hangfire.CpuUsage.Dashboard.png)
