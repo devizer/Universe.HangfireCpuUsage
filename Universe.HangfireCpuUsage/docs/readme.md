@@ -1,10 +1,11 @@
-## Universe.HangfireCpuUsage
+### Universe.HangfireCpuUsage package
 Hangfire's CPU usage intergration provides cpu usage info for both sync and async jobs
 
 ### Minimum OS Requirements
 Linux Kernel 2.6.26+, Mac OS 10.9+, Windows Vista+
 
-### Usage: Log to both dashboard console and to an ILogger
+### Usage
+Configuration example: log cpu usage to the dashboard console, and log  the same to an ILogger
 ```csharp
 builder.Services.AddHangfire(configuration => configuration
     .UseInMemoryStorage()
@@ -27,14 +28,14 @@ builder.Services.AddHangfire(configuration => configuration
 );
 ```
 
-#### Take for example [3 jobs](https://github.com/devizer/Universe.HangfireCpuUsage/blob/main/Universe.HangfireCpuUsage.DemoWebApplication/DemoJobs.cs)
+Take for example [3 jobs](https://github.com/devizer/Universe.HangfireCpuUsage/blob/main/Universe.HangfireCpuUsage.DemoWebApplication/DemoJobs.cs) with the above configuration
 ```css
 public async Task MultiThreadCpuStress(int threadsCount, int requiredCpuUsage) { … }
 public async Task CpuStress(int requiredCpuUsage) { … }
 public async Task Sleep(int duration) { … }
 ```
 
-#### Logger output is
+Logger output is:
 ```yaml
 info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.MultiThreadCpuStress[0]
       Arguments: MultiThreadCpuStress(threadsCount = 4, requiredCpuUsage = 200)
@@ -47,5 +48,5 @@ info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.Sleep[0]
       Job took 606.12 ms (cpu: 0.0%, 0.00 = 0.00 [user] + 0.00 [kernel], 2 sub-tasks)
 ```
 
-#### Dashboard Screen
+Dashboard Screen is:
 ![Dashboard Screenshot](https://raw.githubusercontent.com/devizer/Universe.HangfireCpuUsage/main/Images/Hangfire.CpuUsage.Dashboard.png)
