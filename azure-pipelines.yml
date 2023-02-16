@@ -30,8 +30,13 @@ jobs:
 
   steps:
   - bash: |
-       dotnet restore || dotnet restore --disable-parallel
-       dotnet test -c Release
+      set -eu; set -o pipefail
+      script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
+      Say --Reset-Stopwatch
+      Say "CPU: $(Get-CpuName)"
+
+      dotnet restore || dotnet restore --disable-parallel
+      dotnet test -c Release
     condition: succeededOrFailed()
     displayName: 'Test'
 
