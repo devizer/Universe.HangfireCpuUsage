@@ -1,10 +1,10 @@
-# Universe.HangfireCpuUsage
+## Universe.HangfireCpuUsage
 Hangfire's CPU usage intergration provides cpu usage info for both sync and async jobs
 
-## Minimum OS Requirements
+### Minimum OS Requirements
 Linux Kernel 2.6.26+, Mac OS 10.9+, Windows Vista+
 
-## Usage: Log to both dashboard console and to an ILogger
+### Usage: Log to both dashboard console and to an ILogger
 ```csharp
 builder.Services.AddHangfire(configuration => configuration
     .UseInMemoryStorage()
