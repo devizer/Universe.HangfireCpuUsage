@@ -35,7 +35,7 @@ public async Task CpuStress(int requiredCpuUsage) { вЂ¦ }
 public async Task Sleep(int duration) { вЂ¦ }
 ```
  
-Logger output is:
+Logger output and Dashboard screenshot are:
 ```yaml
 info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.MultiThreadCpuStress[0]
       Arguments: MultiThreadCpuStress(threadsCount = 4, requiredCpuUsage = 200)
@@ -48,5 +48,4 @@ info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.Sleep[0]
       Job took 606.12 ms (cpu: 0.0%, 0.00 = 0.00 [user] + 0.00 [kernel], 2 sub-tasks)
 ```
  
-Dashboard Screen is:
 ![Dashboard Screenshot](https://raw.githubusercontent.com/devizer/Universe.HangfireCpuUsage/main/Images/Hangfire.CpuUsage.Dashboard.png)
