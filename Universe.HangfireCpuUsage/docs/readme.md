@@ -27,18 +27,16 @@ builder.Services.AddHangfire(configuration => configuration
     })
 );
 ```
-
-
-
+ 
+ 
 Take for example [3 jobs](https://github.com/devizer/Universe.HangfireCpuUsage/blob/main/Universe.HangfireCpuUsage.DemoWebApplication/DemoJobs.cs) with the above configuration
 ```css
 public async Task MultiThreadCpuStress(int threadsCount, int requiredCpuUsage) { … }
 public async Task CpuStress(int requiredCpuUsage) { … }
 public async Task Sleep(int duration) { … }
 ```
-
-
-
+ 
+ 
 Logger output is:
 ```yaml
 info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.MultiThreadCpuStress[0]
@@ -51,7 +49,7 @@ info: Universe.HangfireCpuUsage.DemoWebApplication.MyJobs.Sleep[0]
       Arguments: Sleep(duration = 600)
       Job took 606.12 ms (cpu: 0.0%, 0.00 = 0.00 [user] + 0.00 [kernel], 2 sub-tasks)
 ```
-
-
+ 
+ 
 Dashboard Screen is:
 ![Dashboard Screenshot](https://raw.githubusercontent.com/devizer/Universe.HangfireCpuUsage/main/Images/Hangfire.CpuUsage.Dashboard.png)
