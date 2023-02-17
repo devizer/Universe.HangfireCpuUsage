@@ -11,17 +11,20 @@
         <PackageId>Universe.HangfireCpuUsage</PackageId>
         <Title>Universe.HangfireCpuUsage</Title>
         <Authors>Volodymyr Hoida</Authors>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Product>Universe.HangfireCpuUsage</Product>
         <Description>Per-job cpu usage including async jobs on Windows, Linux and Mac. Targets are .Net Standard 1.3, 2.0, and .Net Framework 4.6+</Description>
         <PackageProjectUrl>https://github.com/devizer/Universe.HangfireCpuUsage</PackageProjectUrl>
         <RepositoryUrl>https://github.com/devizer/Universe.HangfireCpuUsage</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIcon>Main.Icon.png</PackageIcon>
         <PackageIconUrl>https://raw.githubusercontent.com/devizer/Universe.HangfireCpuUsage/main/Images/Main.Icon.png</PackageIconUrl>
-        <PackageTags>hangfire cpu usage linux windows macos async job</PackageTags>
+        <PackageTags>hangfire;cpu usage;linux;windows;macos;async job</PackageTags>
         <DebugType>Full</DebugType>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 
 
@@ -30,6 +33,7 @@
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
         <PackageReference Include="Hangfire.Core" Version="1.7.*" />
         <None Include="docs\readme.md" Pack="true" PackagePath="\"/>
+        <None Include="..\Images\Main.Icon.png" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>
