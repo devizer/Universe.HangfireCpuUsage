@@ -27,7 +27,7 @@ builder.Services.AddHangfire(configuration => configuration
 );
 ```
 
-#### Take for example [3 jobs](Universe.HangfireCpuUsage.DemoWebApplication/DemoJobs.cs)
+#### Take for instance [3 jobs](Universe.HangfireCpuUsage.DemoWebApplication/DemoJobs.cs)
 ```css
 public async Task MultiThreadCpuStress(int threadsCount, int requiredCpuUsage) { … }
 public async Task CpuStress(int requiredCpuUsage) { … }
