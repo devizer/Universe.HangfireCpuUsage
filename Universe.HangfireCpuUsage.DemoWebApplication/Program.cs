@@ -16,7 +16,7 @@ builder.Services.AddHangfire(configuration => configuration
     .UseFilter(new AutomaticRetryAttribute() { Attempts = 2, DelayInSecondsByAttemptFunc = _ => 1, OnAttemptsExceeded = AttemptsExceededAction.Delete})
     .AddCpuUsageHandler((context, cpuUsage) =>
     {
-        // Write to hangfire console output
+        // Output to hangfire console 
         context.WriteLine($"Job took {cpuUsage}");
     })
     .AddCpuUsageHandler((context, cpuUsage) =>
