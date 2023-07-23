@@ -20,7 +20,7 @@
         <PackageIcon>Main.Icon.png</PackageIcon>
         <PackageIconUrl>https://raw.githubusercontent.com/devizer/Universe.HangfireCpuUsage/main/Images/Main.Icon.png</PackageIconUrl>
         <PackageTags>hangfire;cpu usage;linux;windows;macos;async job</PackageTags>
-        <DebugType>Full</DebugType>
+        <!-- DebugType>Full</DebugType -->
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageReadmeFile>readme.md</PackageReadmeFile>

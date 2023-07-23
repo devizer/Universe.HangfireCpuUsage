@@ -11,7 +11,7 @@ builder.Services.AddHangfire(configuration => configuration
     .UseConsole()
     .AddCpuUsageHandler((context, cpuUsage) =>
     {
-        // Write to hangfire console output
+        // Output to hangfire console
         context.WriteLine($"Job took {cpuUsage}");
     })
     .AddCpuUsageHandler((context, cpuUsage) =>
